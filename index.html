@@ -1,8 +1,29 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-{% block title %}My Page{% endblock %}
+        #wrapper {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="DAFI21_101.html">DAFI 21-101</a></li>
+        </ul>
+    </nav>
 
-{% block content %}
     <h1>Welcome to my page</h1>
     <p>This is the Index Page</p>
-{% endblock %}
+</body>
+</html>
