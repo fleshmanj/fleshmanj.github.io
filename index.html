@@ -45,30 +45,36 @@
     loadingTask.promise.then(function(pdf) {
       console.log('PDF loaded');
 
-      // Fetch the first page
-      var pageNumber = 1;
-      pdf.getPage(pageNumber).then(function(page) {
-        console.log('Page loaded');
+      var numPages = pdf.numPages;
+      console.log('Total number of pages: ' + numPages);
 
-        var scale = 1.5;
-        var viewport = page.getViewport({scale: scale});
+      // Render all the pages of the PDF document
+      for (var i = 1; i <= numPages; i++) {
+        pdf.getPage(i).then(function(page) {
+          console.log('Page ' + page.pageNumber + ' loaded');
 
-        // Prepare canvas using PDF page dimensions
-        var canvas = document.getElementById('pdfCanvas');
-        var context = canvas.getContext('2d');
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+          var scale = 1.5;
+          var viewport = page.getViewport({scale: scale});
 
-        // Render PDF page into canvas context
-        var renderContext = {
-          canvasContext: context,
-          viewport: viewport
-        };
-        var renderTask = page.render(renderContext);
-        renderTask.promise.then(function () {
-          console.log('Page rendered');
+          // Prepare canvas using PDF page dimensions
+          var canvas = document.createElement('canvas');
+          canvas.className = 'pdf-page-canvas';
+          var context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          document.body.appendChild(canvas);
+
+          // Render PDF page into canvas context
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+          var renderTask = page.render(renderContext);
+          renderTask.promise.then(function () {
+            console.log('Page ' + page.pageNumber + ' rendered');
+          });
         });
-      });
+      }
     }, function (reason) {
       // PDF loading error
       console.error(reason);
