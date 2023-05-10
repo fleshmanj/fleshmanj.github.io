@@ -6,7 +6,7 @@ var url = 'static/pdf/dafi21-101_dafgm2022-01.pdf';
 var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
 // The workerSrc property shall be specified.
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'node_modules/pdfjs-dist/build/pdf.worker.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = '//fleshmanj.github.io/node_modules/pdfjs-dist/build/pdf.worker.js';
 
 // Asynchronous download of PDF
 var loadingTask = pdfjsLib.getDocument(url);
